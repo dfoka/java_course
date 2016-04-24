@@ -5,41 +5,30 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.UserData;
 
-public class UserHelper {
-  private FirefoxDriver wd;
+public class UserHelper extends HelperBase{
 
   public UserHelper(FirefoxDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   public void returnToMainPage() {
-    wd.findElement(By.name("searchstring")).click();
-    wd.findElement(By.name("searchstring")).sendKeys("\\9");
+    click(By.name("searchstring"));
+  //  wd.findElement(By.name("searchstring")).sendKeys("\\9");
   }
 
   public void submitUserCreation() {
-    wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+   click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
   public void fillUserForm(UserData userData) {
-    wd.findElement(By.name("firstname")).click();
-    wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys(userData.getFirstname());
-    wd.findElement(By.name("lastname")).click();
-    wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys(userData.getLastname());
-    wd.findElement(By.name("company")).click();
-    wd.findElement(By.name("company")).clear();
-    wd.findElement(By.name("company")).sendKeys(userData.getCompany());
-    wd.findElement(By.name("address")).click();
-    wd.findElement(By.name("address")).clear();
-    wd.findElement(By.name("address")).sendKeys(userData.getAddress());
-    wd.findElement(By.name("home")).click();
-    wd.findElement(By.name("home")).clear();
-    wd.findElement(By.name("home")).sendKeys(userData.getTelephone());
+    type(By.name("firstname"), userData.getFirstname());
+    type(By.name("lastname"), userData.getLastname());
+    type(By.name("company"), userData.getCompany());
+    type(By.name("company"), userData.getCompany());
+    type(By.name("home"), userData.getTelephone());
   }
 
   public void goToPage() {
-    wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
   }
 }
