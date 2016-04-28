@@ -15,10 +15,7 @@ public class UserHelper extends HelperBase{
     super(wd);
   }
 
-  public void returnToMainPage() {
-  //  click(By.name("searchstring"));
-  //  wd.findElement(By.name("searchstring")).sendKeys("\\9");
-  }
+
 
   public void submitUserCreation() {
    click(By.xpath("//div[@id='content']/form/input[21]"));

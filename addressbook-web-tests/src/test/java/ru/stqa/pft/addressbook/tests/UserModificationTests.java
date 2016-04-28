@@ -11,8 +11,6 @@ public class UserModificationTests extends TestBase {
     app.getUserHelper().initUserModification();
     app.getUserHelper().fillUserForm(new UserData("test1", "test2", "test3", "test4", "12345", null), false);
     app.getUserHelper().submitUserModification();
-    app.getUserHelper().returnToMainPage();
-
-
+    app.getNavigationHelper().gotoHomePage();
   }
 }
