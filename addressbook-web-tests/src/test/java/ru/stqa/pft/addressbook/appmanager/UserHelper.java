@@ -60,4 +60,15 @@ public class UserHelper extends HelperBase{
   public void submitUserModification() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
+
+  public void createUser(UserData user) {
+    goToPage();
+    fillUserForm(user, true);
+    submitUserCreation();
+    goToUserPage();
+  }
+
+  public boolean isThereAUser() {
+    return isElementPresent((By.name("selected[]")));
+  }
 }
