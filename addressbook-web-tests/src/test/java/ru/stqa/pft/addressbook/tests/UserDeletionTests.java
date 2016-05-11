@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDeletionTests extends TestBase {
 
-  @Test
+  @Test (enabled = false)
   public void testDeletionUser() {
     app.getUserHelper().goToUserPage();
     if (! app.getUserHelper().isThereAUser()) {
@@ -18,7 +18,7 @@ public class UserDeletionTests extends TestBase {
     List<UserData> before = app.getUserHelper().getUserList();
     app.getUserHelper().selectUser(before.size() -1);
     app.getUserHelper().confirmDeletion();
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<UserData> after = app.getUserHelper().getUserList();
     Assert.assertEquals(after.size(), before.size() -1);
 

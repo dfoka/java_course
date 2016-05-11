@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class UserModificationTests extends TestBase {
-  @Test
+  @Test (enabled = false)
   public void testUserModification(){
     app.getUserHelper().goToUserPage();
     if (! app.getUserHelper().isThereAUser()) {
@@ -21,7 +21,7 @@ public class UserModificationTests extends TestBase {
     UserData user = new UserData(before.get(before.size() - 1).getId(), "test1", "test2", "test3", "test4", "12345", null);
     app.getUserHelper().fillUserForm(user, false);
     app.getUserHelper().submitUserModification();
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<UserData> after = app.getUserHelper().getUserList();
     Assert.assertEquals(after.size(), before.size());
 

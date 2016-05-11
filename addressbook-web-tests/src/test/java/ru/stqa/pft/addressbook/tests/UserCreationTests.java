@@ -9,14 +9,14 @@ import java.util.List;
 
 public class UserCreationTests extends TestBase {
 
-    @Test
+    @Test (enabled = false)
     public void UserCreationTests() {
         List<UserData> before = app.getUserHelper().getUserList();
         app.getUserHelper().goToPage();
         UserData user = new UserData("test1", "test2", "test3", "test4", "12345", "test1");
         app.getUserHelper().createUser(user);
         List<UserData> after = app.getUserHelper().getUserList();
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         Assert.assertEquals(after.size(), before.size() +1);
 
         before.add(user);
