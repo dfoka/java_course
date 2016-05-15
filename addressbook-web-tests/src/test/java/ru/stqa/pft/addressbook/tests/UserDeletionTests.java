@@ -1,28 +1,36 @@
 package ru.stqa.pft.addressbook.tests;
 
 
-import org.testng.Assert;
+
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.addressbook.model.Users;
 
-import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class UserDeletionTests extends TestBase {
 
-  @Test (enabled = false)
-  public void testDeletionUser() {
-    app.getUserHelper().goToUserPage();
-    if (! app.getUserHelper().isThereAUser()) {
-      app.getUserHelper().createUser(new UserData("test1", "test2", "test3", "test4", "12345","test1"));
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().userPage();
+    if ( app.user().all().size() == 0) {
+      app.user().create(new UserData().
+              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withTelephone("12345").withGroup("test1"));
     }
-    List<UserData> before = app.getUserHelper().getUserList();
-    app.getUserHelper().selectUser(before.size() -1);
-    app.getUserHelper().confirmDeletion();
-    app.goTo().gotoHomePage();
-    List<UserData> after = app.getUserHelper().getUserList();
-    Assert.assertEquals(after.size(), before.size() -1);
+  }
 
-    before.remove(before.size() -1);
-    Assert.assertEquals(before, after);
+  @Test
+  public void testDeletionUser() {
+
+    Users before = app.user().all();
+    UserData deletedUser = before.iterator().next();
+    app.user().delete(deletedUser);
+    Users after = app.user().all();
+    assertEquals(after.size(), before.size() -1);
+    assertThat(after, equalTo(before.without(deletedUser)));
   }
 }
