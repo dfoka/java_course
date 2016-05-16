@@ -11,9 +11,35 @@ public class UserData {
   private String homePhone;
   private String group;
   private String allPhones;
+  private String firstEmail;
+  private String secondEmail;
+  private String thirdEmail;
+  private String allEmails;
 
-  public String getAllPhones() {
-    return allPhones;
+  public String getAllEmails() {
+    return allEmails;
+  }
+
+  public UserData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+  public UserData withThirdEmail(String thirdEmail) {
+    this.thirdEmail = thirdEmail;
+    return this;
+  }
+
+
+  public UserData withSecondEmail(String secondEmail) {
+    this.secondEmail = secondEmail;
+    return this;
+  }
+
+
+  public UserData withFirstEmail(String firstEmail) {
+    this.firstEmail = firstEmail;
+    return this;
   }
 
   public UserData withAllPhones(String allPhones) {
@@ -25,6 +51,7 @@ public class UserData {
     this.id = id;
     return this;
   }
+
   public UserData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
@@ -64,6 +91,23 @@ public class UserData {
     this.group = group;
     return this;
   }
+
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public String getFirstEmail() {
+    return firstEmail;
+  }
+
+  public String getSecondEmail() {
+    return secondEmail;
+  }
+
+  public String getThirdEmail() {
+    return thirdEmail;
+  }
+
   public String getFirstname() {
     return firstname;
   }
@@ -87,6 +131,7 @@ public class UserData {
   public String getMobilePhone() {
     return mobilePhone;
   }
+
   public String getWorkPhone() {
     return workPhone;
   }
