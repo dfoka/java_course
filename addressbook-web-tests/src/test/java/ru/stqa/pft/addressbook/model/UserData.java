@@ -6,9 +6,20 @@ public class UserData {
   private String lastname;
   private String company;
   private String address;
-  private String telephone;
+  private String mobilePhone;
+  private String workPhone;
+  private String homePhone;
   private String group;
+  private String allPhones;
 
+  public String getAllPhones() {
+    return allPhones;
+  }
+
+  public UserData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
 
   public UserData withId(int id) {
     this.id = id;
@@ -34,8 +45,18 @@ public class UserData {
     return this;
   }
 
-  public UserData withTelephone(String telephone) {
-    this.telephone = telephone;
+  public UserData withHomePhone(String homePhone) {
+    this.homePhone = homePhone;
+    return this;
+  }
+
+  public UserData withMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
+    return this;
+  }
+
+  public UserData withWorkPhone(String workPhone) {
+    this.workPhone = workPhone;
     return this;
   }
 
@@ -59,8 +80,15 @@ public class UserData {
     return address;
   }
 
-  public String getTelephone() {
-    return telephone;
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+  public String getWorkPhone() {
+    return workPhone;
   }
 
   public String getGroup() {

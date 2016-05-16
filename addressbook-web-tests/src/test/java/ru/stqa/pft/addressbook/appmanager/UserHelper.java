@@ -2,16 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserHelper extends HelperBase {
@@ -29,8 +26,8 @@ public class UserHelper extends HelperBase {
     type(By.name("firstname"), userData.getFirstname());
     type(By.name("lastname"), userData.getLastname());
     type(By.name("company"), userData.getCompany());
-    type(By.name("company"), userData.getAddress());
-    type(By.name("home"), userData.getTelephone());
+    type(By.name("address"), userData.getAddress());
+    type(By.name("home"), userData.getHomePhone());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
@@ -104,8 +101,21 @@ public class UserHelper extends HelperBase {
       String lastname = element.findElement(By.xpath(".//td[2]")).getText();
       String firstname = element.findElement(By.xpath(".//td[3]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      users.add(new UserData().withId(id).withFirstname(firstname).withLastname(lastname));
+      String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
+      users.add(new UserData().withId(id).withFirstname(firstname).withLastname(lastname).withAllPhones(allPhones));
     }
     return users;
   }
+  public UserData infoFromEditForm(UserData user) {
+    selectUserToEdit(user.getId());
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lasttname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String homephone = wd.findElement(By.name("home")).getAttribute("value");
+    String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
+    String workphone = wd.findElement(By.name("work")).getAttribute("value");
+    wd.navigate().back();
+    return new UserData().
+            withFirstname(firstname).withLastname(lasttname).withHomePhone(homephone).withMobilePhone(mobilephone).withWorkPhone(workphone);
+  }
+
 }

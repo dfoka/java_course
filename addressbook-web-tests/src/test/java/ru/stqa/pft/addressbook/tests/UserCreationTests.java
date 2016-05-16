@@ -13,7 +13,7 @@ public class UserCreationTests extends TestBase {
     public void UserCreationTests() {
         Users before = app.user().all();
         app.goTo().userPage();
-        UserData user = new UserData().withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withTelephone("12345").withGroup("test1");
+        UserData user = new UserData().withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withGroup("test1");
         app.user().create(user);
         Users after = app.user().all();
         app.goTo().homePage();
