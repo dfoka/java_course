@@ -15,6 +15,17 @@ public class UserData {
   private String secondEmail;
   private String thirdEmail;
   private String allEmails;
+  private String data;
+
+  public String getData() {
+    return data;
+  }
+
+  public UserData withData(String data) {
+    this.data = data;
+    return this;
+  }
+
 
   public String getAllEmails() {
     return allEmails;

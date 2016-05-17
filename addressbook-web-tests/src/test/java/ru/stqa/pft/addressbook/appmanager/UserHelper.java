@@ -9,6 +9,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 public class UserHelper extends HelperBase {
@@ -28,11 +29,11 @@ public class UserHelper extends HelperBase {
     type(By.name("company"), userData.getCompany());
     type(By.name("address"), userData.getAddress());
     type(By.name("home"), userData.getHomePhone());
-    type(By.name("work"),userData.getWorkPhone());
-    type(By.name("mobile"),userData.getMobilePhone());
-    type(By.name("email"),userData.getFirstEmail());
-    type(By.name("email2"),userData.getSecondEmail());
-    type(By.name("email3"),userData.getThirdEmail());
+    type(By.name("work"), userData.getWorkPhone());
+    type(By.name("mobile"), userData.getMobilePhone());
+    type(By.name("email"), userData.getFirstEmail());
+    type(By.name("email2"), userData.getSecondEmail());
+    type(By.name("email3"), userData.getThirdEmail());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
@@ -62,17 +63,24 @@ public class UserHelper extends HelperBase {
   public void initUserModification() {
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
   }
+
   public void selectUserToEdit(int id) {
     wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
-    }
+  }
+
+  public void selectUserToGetInfo(int id) {
+    wd.findElement(By.cssSelector("a[href='view.php?id=" + id + "']")).click();
+  }
 
   public void submitUserModification() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
 
   }
-  public void selectUserById(int id){
+
+  public void selectUserById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
+
   public void create(UserData user) {
     fillUserForm(user, true);
     submitUserCreation();
@@ -91,7 +99,6 @@ public class UserHelper extends HelperBase {
     confirmDeletion();
     goToUserPage();
   }
-
 
 
   public boolean isThereAUser() {
@@ -114,6 +121,7 @@ public class UserHelper extends HelperBase {
     }
     return users;
   }
+
   public UserData infoFromEditForm(UserData user) {
     selectUserToEdit(user.getId());
     String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
@@ -132,4 +140,42 @@ public class UserHelper extends HelperBase {
             .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
   }
 
+  public void goToModification() {
+    wd.findElement(By.name("modifiy")).click();
+  }
+
+  public UserData infoFromModifyForm(UserData user) {
+    selectUserToGetInfo(user.getId());
+    goToModification();
+    String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lasttname = wd.findElement(By.name("lastname")).getAttribute("value");
+    String homephone = wd.findElement(By.name("home")).getAttribute("value");
+    String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
+    String workphone = wd.findElement(By.name("work")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getAttribute("value");
+    String firstEmail = wd.findElement(By.name("email")).getAttribute("value");
+    String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
+    String thirdEmail = wd.findElement(By.name("email3")).getAttribute("value");
+    String company = wd.findElement(By.name("company")).getAttribute("value");
+    wd.navigate().back();
+    return new UserData().
+            withFirstname(firstname).withLastname(lasttname).withAddress(address).withCompany(company)
+            .withHomePhone(homephone).withMobilePhone(mobilephone).withWorkPhone(workphone)
+            .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
+  }
+  public UserData infoFromDetailsForm (UserData userData){
+    String userInfo;
+    selectUserToGetInfo(userData.getId());
+    String data = wd.findElement(By.id("content")).getText();
+    if(isElementPresent(By.xpath(".//i"))){
+      String group = wd.findElement(By.xpath(".//i")).getText();
+      userInfo = data.replace(group, "");
+    }
+    else {
+      userInfo = data;
+    }
+    wd.navigate().back();
+    return new UserData().withData(userInfo);
+
+  }
 }
