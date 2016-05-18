@@ -34,6 +34,7 @@ public class UserHelper extends HelperBase {
     type(By.name("email"), userData.getFirstEmail());
     type(By.name("email2"), userData.getSecondEmail());
     type(By.name("email3"), userData.getThirdEmail());
+    attatch(By.name("photo"), userData.getPhoto());
 
     if (creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
