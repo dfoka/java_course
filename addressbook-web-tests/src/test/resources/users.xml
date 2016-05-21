@@ -29,14 +29,4 @@
     <firstEmail>email@test.com 2</firstEmail>
     <thirdEmail>email3@test.com 2</thirdEmail>
   </user>
-  <user>
-    <firstname>firstname 3</firstname>
-    <lastname>lastname 3</lastname>
-    <company>test 3</company>
-    <address>address 3</address>
-    <homePhone>12345 3</homePhone>
-    <group>test 3</group>
-    <firstEmail>email@test.com 3</firstEmail>
-    <thirdEmail>email3@test.com 3</thirdEmail>
-  </user>
 </list>
