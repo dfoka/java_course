@@ -51,12 +51,12 @@ public class UserCreationTests extends TestBase {
     return users.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
   }
 
-  @Test(dataProvider = "validUsersFromXml")
+  @Test(dataProvider = "validUsersFromJson")
   public void UserCreationTests(UserData user) {
-    Users before = app.user().all();
+    Users before = app.db().users();
     app.goTo().userPage();
     app.user().create(user);
-    Users after = app.user().all();
+    Users after = app.db().users();
     app.goTo().homePage();
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo

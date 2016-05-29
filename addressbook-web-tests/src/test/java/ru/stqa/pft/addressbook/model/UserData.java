@@ -3,48 +3,89 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 @XStreamAlias("user")
+@Entity
+@Table (name = "addressbook")
 public class UserData {
+
   @XStreamOmitField
+  @Id
+  @Column (name = "id")
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column (name = "firstname")
   private String firstname;
+
   @Expose
+  @Column (name = "lastname")
   private String lastname;
+
   @Expose
+  @Column (name = "company")
   private String company;
+
   @Expose
+  @Column (name = "address")
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Column (name = "mobile")
+  @Type(type = "text")
   private String mobilePhone;
+
   @Expose
+  @Column (name = "work")
+  @Type(type = "text")
   private String workPhone;
+
   @Expose
+  @Column (name = "home")
+  @Type(type = "text")
   private String homePhone;
+
   @Expose
+  @Transient
   private String group;
+
+  @Transient
   private String allPhones;
+
   @Expose
+  @Transient
   private String firstEmail;
+
   @Expose
+  @Transient
   private String secondEmail;
+
   @Expose
+  @Transient
   private String thirdEmail;
+
   @Expose
+  @Transient
   private String allEmails;
+  @Transient
   private String data;
-  private File photo;
+
+ @Transient
+  private String photo ;
 
   public File getPhoto() {
-    return photo;
+    return new File (photo);
   }
 
   public UserData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
+
 
   public String getData() {
     return data;
@@ -204,7 +245,16 @@ public class UserData {
 
     if (id != userData.id) return false;
     if (firstname != null ? !firstname.equals(userData.firstname) : userData.firstname != null) return false;
-    return lastname != null ? lastname.equals(userData.lastname) : userData.lastname == null;
+    if (lastname != null ? !lastname.equals(userData.lastname) : userData.lastname != null) return false;
+    if (company != null ? !company.equals(userData.company) : userData.company != null) return false;
+    if (address != null ? !address.equals(userData.address) : userData.address != null) return false;
+    if (mobilePhone != null ? !mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone != null) return false;
+    if (workPhone != null ? !workPhone.equals(userData.workPhone) : userData.workPhone != null) return false;
+    if (homePhone != null ? !homePhone.equals(userData.homePhone) : userData.homePhone != null) return false;
+    if (group != null ? !group.equals(userData.group) : userData.group != null) return false;
+    if (firstEmail != null ? !firstEmail.equals(userData.firstEmail) : userData.firstEmail != null) return false;
+    if (secondEmail != null ? !secondEmail.equals(userData.secondEmail) : userData.secondEmail != null) return false;
+    return thirdEmail != null ? thirdEmail.equals(userData.thirdEmail) : userData.thirdEmail == null;
 
   }
 
@@ -213,6 +263,15 @@ public class UserData {
     int result = id;
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (company != null ? company.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
+    result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
+    result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
+    result = 31 * result + (group != null ? group.hashCode() : 0);
+    result = 31 * result + (firstEmail != null ? firstEmail.hashCode() : 0);
+    result = 31 * result + (secondEmail != null ? secondEmail.hashCode() : 0);
+    result = 31 * result + (thirdEmail != null ? thirdEmail.hashCode() : 0);
     return result;
   }
 }
