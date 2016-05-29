@@ -28,7 +28,6 @@ public class UserModificationTests extends TestBase {
     UserData modifiedUser = before.iterator().next();
     UserData user = new UserData().
             withId(modifiedUser.getId()).withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withGroup("test1");
-    app.goTo().userPage();
     app.user().modify(user);
     Users after = app.db().users();
     assertEquals(after.size(), before.size());

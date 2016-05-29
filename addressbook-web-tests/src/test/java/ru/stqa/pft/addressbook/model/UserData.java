@@ -75,14 +75,17 @@ public class UserData {
   private String data;
 
  @Transient
-  private String photo ;
+  private String photo = "" ;
 
   public File getPhoto() {
+    if (photo == null){
+      photo = "";
+    }
     return new File (photo);
   }
 
   public UserData withPhoto(File photo) {
-    this.photo = photo.getPath();
+    this.photo = photo.getAbsolutePath();
     return this;
   }
 
