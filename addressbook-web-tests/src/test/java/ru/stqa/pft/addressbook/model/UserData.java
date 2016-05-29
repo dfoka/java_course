@@ -57,15 +57,18 @@ public class UserData {
   private String allPhones;
 
   @Expose
-  @Transient
+  @Column (name = "email")
+  @Type(type = "text")
   private String firstEmail;
 
   @Expose
-  @Transient
+  @Column (name = "email2")
+  @Type(type = "text")
   private String secondEmail;
 
   @Expose
-  @Transient
+  @Column (name = "email3")
+  @Type(type = "text")
   private String thirdEmail;
 
   @Expose
@@ -74,7 +77,7 @@ public class UserData {
   @Transient
   private String data;
 
- @Transient
+  @Transient
   private String photo = "" ;
 
   public File getPhoto() {
@@ -236,6 +239,21 @@ public class UserData {
   public String toString() {
     return "UserData{" +
             "id=" + id +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", company='" + company + '\'' +
+            ", address='" + address + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", group='" + group + '\'' +
+            ", allPhones='" + allPhones + '\'' +
+            ", firstEmail='" + firstEmail + '\'' +
+            ", secondEmail='" + secondEmail + '\'' +
+            ", thirdEmail='" + thirdEmail + '\'' +
+            ", allEmails='" + allEmails + '\'' +
+            ", data='" + data + '\'' +
+            ", photo='" + photo + '\'' +
             '}';
   }
 
@@ -257,7 +275,8 @@ public class UserData {
     if (group != null ? !group.equals(userData.group) : userData.group != null) return false;
     if (firstEmail != null ? !firstEmail.equals(userData.firstEmail) : userData.firstEmail != null) return false;
     if (secondEmail != null ? !secondEmail.equals(userData.secondEmail) : userData.secondEmail != null) return false;
-    return thirdEmail != null ? thirdEmail.equals(userData.thirdEmail) : userData.thirdEmail == null;
+    if (thirdEmail != null ? !thirdEmail.equals(userData.thirdEmail) : userData.thirdEmail != null) return false;
+    return photo != null ? photo.equals(userData.photo) : userData.photo == null;
 
   }
 
@@ -275,6 +294,7 @@ public class UserData {
     result = 31 * result + (firstEmail != null ? firstEmail.hashCode() : 0);
     result = 31 * result + (secondEmail != null ? secondEmail.hashCode() : 0);
     result = 31 * result + (thirdEmail != null ? thirdEmail.hashCode() : 0);
+    result = 31 * result + (photo != null ? photo.hashCode() : 0);
     return result;
   }
 }

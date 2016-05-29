@@ -18,7 +18,7 @@ public class UserModificationTests extends TestBase {
     if (app.db().users().size() == 0) {
       app.goTo().userPage();
       app.user().create(new UserData().
-              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withGroup("test1"));
+              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withMobilePhone("112233").withWorkPhone("332211").withGroup("test1"));
     }
   }
 
@@ -27,7 +27,9 @@ public class UserModificationTests extends TestBase {
     Users before = app.db().users();
     UserData modifiedUser = before.iterator().next();
     UserData user = new UserData().
-            withId(modifiedUser.getId()).withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withGroup("test1");
+            withId(modifiedUser.getId()).withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4")
+            .withHomePhone("12345").withMobilePhone("112233").withWorkPhone("332211").withFirstEmail("email1@test.com").withSecondEmail("email2@test.com")
+            .withThirdEmail("email3@test.com").withGroup("test1");
     app.user().modify(user);
     Users after = app.db().users();
     assertEquals(after.size(), before.size());

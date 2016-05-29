@@ -53,8 +53,8 @@ public class UserCreationTests extends TestBase {
 
   @Test(dataProvider = "validUsersFromXml")
   public void UserCreationTests(UserData user) {
-    Users before = app.db().users();
     app.goTo().userPage();
+    Users before = app.db().users();
     app.user().create(user);
     Users after = app.db().users();
     app.goTo().homePage();

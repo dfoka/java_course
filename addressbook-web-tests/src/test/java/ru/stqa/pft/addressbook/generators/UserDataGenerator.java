@@ -74,8 +74,8 @@ public class UserDataGenerator {
   private void saveAsCsv(List<UserData> users, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (UserData user : users){
-      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s\n", user.getFirstname(), user.getLastname(),user.getCompany(), user.getAddress(),
-              user.getHomePhone(),user.getFirstEmail(), user.getThirdEmail(), user.getGroup()));
+      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", user.getFirstname(), user.getLastname(),user.getCompany(), user.getAddress(),
+              user.getHomePhone(),user.getMobilePhone(),user.getMobilePhone(),user.getFirstEmail(),user.getSecondEmail(),user.getThirdEmail(), user.getGroup()));
     }
     writer.close();
   }
@@ -84,7 +84,7 @@ public class UserDataGenerator {
     List<UserData> users = new ArrayList<UserData>();
     for (int i = 0; i < count; i++){
       users.add(new UserData().withFirstname(String.format("firstname %s", i)).withLastname(String.format("lastname %s", i)).withCompany(String.format("test %s", i))
-              .withHomePhone(String.format("12345 %s", i)).withAddress(String.format("address %s", i)).withFirstEmail(String.format("email@test.com %s", i))
+              .withHomePhone(String.format("12345 %s", i)).withMobilePhone(String.format("112233 %s", i)).withMobilePhone(String.format("332211 %s", i)).withAddress(String.format("address %s", i)).withFirstEmail(String.format("email@test.com %s", i)).withSecondEmail(String.format("email2@test.com %s", i))
               .withThirdEmail(String.format("email3@test.com %s", i)).withGroup(String.format("test %s", i)));
     }
     return users;
