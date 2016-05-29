@@ -266,15 +266,7 @@ public class UserData {
 
     if (id != userData.id) return false;
     if (firstname != null ? !firstname.equals(userData.firstname) : userData.firstname != null) return false;
-    if (lastname != null ? !lastname.equals(userData.lastname) : userData.lastname != null) return false;
-    if (company != null ? !company.equals(userData.company) : userData.company != null) return false;
-    if (address != null ? !address.equals(userData.address) : userData.address != null) return false;
-    if (mobilePhone != null ? !mobilePhone.equals(userData.mobilePhone) : userData.mobilePhone != null) return false;
-    if (workPhone != null ? !workPhone.equals(userData.workPhone) : userData.workPhone != null) return false;
-    if (homePhone != null ? !homePhone.equals(userData.homePhone) : userData.homePhone != null) return false;
-    if (firstEmail != null ? !firstEmail.equals(userData.firstEmail) : userData.firstEmail != null) return false;
-    if (secondEmail != null ? !secondEmail.equals(userData.secondEmail) : userData.secondEmail != null) return false;
-    return thirdEmail != null ? thirdEmail.equals(userData.thirdEmail) : userData.thirdEmail == null;
+    return lastname != null ? lastname.equals(userData.lastname) : userData.lastname == null;
 
   }
 
@@ -283,14 +275,6 @@ public class UserData {
     int result = id;
     result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
     result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-    result = 31 * result + (company != null ? company.hashCode() : 0);
-    result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
-    result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
-    result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
-    result = 31 * result + (firstEmail != null ? firstEmail.hashCode() : 0);
-    result = 31 * result + (secondEmail != null ? secondEmail.hashCode() : 0);
-    result = 31 * result + (thirdEmail != null ? thirdEmail.hashCode() : 0);
     return result;
   }
 }
