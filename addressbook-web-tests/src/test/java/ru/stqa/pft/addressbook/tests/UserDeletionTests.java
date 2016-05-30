@@ -19,7 +19,7 @@ public class UserDeletionTests extends TestBase {
     if (app.db().users().size() == 0) {
       app.goTo().userPage();
       app.user().create(new UserData().
-              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withGroup("test1"));
+              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345"));
     }
   }
 

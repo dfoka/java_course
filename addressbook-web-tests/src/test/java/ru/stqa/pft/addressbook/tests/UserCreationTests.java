@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
@@ -53,9 +54,10 @@ public class UserCreationTests extends TestBase {
 
   @Test(dataProvider = "validUsersFromXml")
   public void UserCreationTests(UserData user) {
-    app.goTo().userPage();
     Users before = app.db().users();
-    app.user().create(user);
+    app.goTo().userPage();
+    Groups groups = app.db().groups();
+    app.user().create(user.inGroup(groups.iterator().next()));
     Users after = app.db().users();
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo

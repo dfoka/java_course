@@ -16,7 +16,7 @@ public class UserEmailTests extends TestBase {
     app.goTo().userPage();
     if ( app.user().all().size() == 0) {
       app.user().create(new UserData().
-              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withThirdEmail("dima@mail.ru").withGroup("test1"));
+              withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withThirdEmail("dima@mail.ru"));
     }
   }
 

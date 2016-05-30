@@ -7,22 +7,8 @@
     <homePhone>12345 0</homePhone>
     <mobilePhone>22222 0</mobilePhone>
     <workPhone>3333 0</workPhone>
-    <group>test 0</group>
     <firstEmail>email@test.com 0</firstEmail>
     <secondEmail>email2@test.com 0</secondEmail>
     <thirdEmail>email3@test.com 0</thirdEmail>
-  </user>
-  <user>
-    <firstname>firstname 1</firstname>
-    <lastname>lastname 1</lastname>
-    <company>test 1</company>
-    <address>address 1</address>
-    <homePhone>12345 1</homePhone>
-    <mobilePhone>22222 1</mobilePhone>
-    <workPhone>3333 1</workPhone>
-    <group>test 1</group>
-    <firstEmail>email@test.com 1</firstEmail>
-    <secondEmail>email2@test.com 1</secondEmail>
-    <thirdEmail>email3@test.com 1</thirdEmail>
   </user>
 </list>

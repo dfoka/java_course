@@ -37,11 +37,13 @@ public class UserHelper extends HelperBase {
     attatch(By.name("photo"), userData.getPhoto());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+      if (userData.getGroups().size() > 0) {
+        Assert.assertTrue(userData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroups().iterator().next().getName());
+      }
     } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
-
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
   }
 
   public void goToPage() {
