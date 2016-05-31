@@ -42,8 +42,8 @@ public class UserHelper extends HelperBase {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroups().iterator().next().getName());
       }
     } else {
-        Assert.assertFalse(isElementPresent(By.name("new_group")));
-      }
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
   }
 
   public void goToPage() {
@@ -166,15 +166,15 @@ public class UserHelper extends HelperBase {
             .withHomePhone(homephone).withMobilePhone(mobilephone).withWorkPhone(workphone)
             .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
   }
-  public UserData infoFromDetailsForm (UserData userData){
+
+  public UserData infoFromDetailsForm(UserData userData) {
     String userInfo;
     selectUserToGetInfo(userData.getId());
     String data = wd.findElement(By.id("content")).getText();
-    if(isElementPresent(By.xpath(".//i"))){
+    if (isElementPresent(By.xpath(".//i"))) {
       String group = wd.findElement(By.xpath(".//i")).getText();
       userInfo = data.replace(group, "");
-    }
-    else {
+    } else {
       userInfo = data;
     }
     wd.navigate().back();
