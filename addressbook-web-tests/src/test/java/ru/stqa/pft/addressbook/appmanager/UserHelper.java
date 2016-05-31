@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
@@ -180,5 +181,34 @@ public class UserHelper extends HelperBase {
     wd.navigate().back();
     return new UserData().withData(userInfo);
 
+  }
+
+  public void addToGroup(UserData user, GroupData group) {
+    selectUserById(user.getId());
+    selectAvailableGroup(group);
+    submitAdding();
+
+  }
+
+  private void submitAdding() {
+    click(By.xpath("//input[@name='add']"));
+  }
+
+  private void selectAvailableGroup(GroupData group) {
+    new Select(wd.findElement(By.xpath(".//select[@name='to_group']"))).selectByVisibleText(group.getName());
+  }
+
+  public void deleteFromGroup(UserData user, GroupData group) {
+    selectGroup(group);
+    selectUserById(user.getId());
+    removeFromGroup();
+  }
+
+  private void removeFromGroup() {
+    click(By.xpath("//input[@name='remove']"));
+  }
+
+  private void selectGroup(GroupData group) {
+    new Select(wd.findElement(By.xpath(".//select[@name='group']"))).selectByVisibleText(group.getName());
   }
 }
