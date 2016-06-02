@@ -10,7 +10,6 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 public class UserHelper extends HelperBase {
@@ -183,21 +182,6 @@ public class UserHelper extends HelperBase {
 
   }
 
-  public void addToGroup(UserData user, GroupData group) {
-    selectUserById(user.getId());
-    selectAvailableGroup(group);
-    submitAdding();
-
-  }
-
-  private void submitAdding() {
-    click(By.xpath("//input[@name='add']"));
-  }
-
-  private void selectAvailableGroup(GroupData group) {
-    new Select(wd.findElement(By.xpath(".//select[@name='to_group']"))).selectByVisibleText(group.getName());
-  }
-
   public void deleteFromGroup(UserData user, GroupData group) {
     selectGroup(group);
     selectUserById(user.getId());
@@ -211,4 +195,39 @@ public class UserHelper extends HelperBase {
   private void selectGroup(GroupData group) {
     new Select(wd.findElement(By.xpath(".//select[@name='group']"))).selectByVisibleText(group.getName());
   }
+
+  public boolean existsInGroup(GroupData group, UserData user) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    if (isThereAUser(user.getId())) { return true;
+    } else{ return false; }
+  }
+
+  public boolean isThereAUser(int id) {
+    return isElementPresent(By.cssSelector("input[value='" + id + "']"));
+  }
+
+  public Users usersFromGroupPage(GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    Users users = new Users();
+    users = all();
+    return users;
+  }
+
+  public void addToGroup(UserData contact, GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+    selectUserById(contact.getId());
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    wd.findElement(By.xpath("//*[@name='add']")).click();
+    wd.findElement(By.xpath("//*[@class='msgbox']//a")).click();
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+  }
+
+  public void deleteUserFromGroup(UserData contact, GroupData group) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    selectUserById(contact.getId());
+    wd.findElement(By.xpath("//*[@name='remove']")).click();
+    wd.findElement(By.xpath("//*[@class='msgbox']//a")).click();
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+  }
+
 }

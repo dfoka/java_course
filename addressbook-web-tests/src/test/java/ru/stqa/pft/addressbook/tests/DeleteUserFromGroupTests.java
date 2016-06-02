@@ -7,6 +7,9 @@ import ru.stqa.pft.addressbook.model.Groups;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class DeleteUserFromGroupTests extends TestBase {
 
@@ -23,6 +26,7 @@ public class DeleteUserFromGroupTests extends TestBase {
   private void ensurePreconditionsUserExists() {
     app.goTo().homePage();
     if (app.db().users().size() == 0) {
+      app.goTo().userPage();
       app.user().create(new UserData()
               .withFirstname("test1").withLastname("test2").withCompany("test3").withAddress("test4").withHomePhone("12345").withMobilePhone("112233")
               .withWorkPhone("332211").withFirstEmail("email1@test.com").withSecondEmail("email2@test.com").withThirdEmail("email3@test.com"));
@@ -34,9 +38,22 @@ public class DeleteUserFromGroupTests extends TestBase {
     app.goTo().homePage();
     Users users = app.db().users();
     Groups groups = app.db().groups();
-    UserData user = users.iterator().next();
+    UserData deletedUserFromGroup = users.iterator().next();
     GroupData group = groups.stream().iterator().next();
-    app.user().deleteFromGroup(user, group);
-    app.goTo().homePage();
+    Users allUsers = group.getUsers();
+
+    if(app.user().usersFromGroupPage(group).size() == 0)
+    {
+      app.user().addToGroup(deletedUserFromGroup, group);
+      app.user().deleteUserFromGroup(deletedUserFromGroup, group);
+      assertThat(app.user().usersFromGroupPage(group).size(), equalTo(allUsers.size()));
+    }
+    else{
+      deletedUserFromGroup = app.user().usersFromGroupPage(group).iterator().next();
+      app.user().deleteUserFromGroup(deletedUserFromGroup, group);
+      assertThat(app.user().usersFromGroupPage(group).size(), equalTo(allUsers.size()-1));
+    }
+    Groups groupsAfter = app.db().groups();
+    assertThat(groupsAfter.iterator().next().getUsers(), equalTo(allUsers.without(deletedUserFromGroup)));
   }
 }
