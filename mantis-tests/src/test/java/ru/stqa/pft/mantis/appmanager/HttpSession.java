@@ -1,6 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -32,6 +33,7 @@ public class HttpSession {
     params.add(new BasicNameValuePair("password", password));
     params.add(new BasicNameValuePair("secure_session", "on"));
     params.add(new BasicNameValuePair("return", "index.php"));
+    post.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response = httpclient.execute(post);
     String body = getTextFrom(response);
     return body.contains(String.format("<span class=\"italic\">%s</span>", username));
